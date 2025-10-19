@@ -3,21 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qoo10多功能数据工具 - 网页版</title>
+    <title>Qoo10多功能数据工具</title>
     <style>
-        :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --success-color: #4CAF50;
-            --warning-color: #FF9800;
-            --info-color: #2196F3;
-            --danger-color: #f44336;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
         * {
             margin: 0;
             padding: 0;
@@ -26,47 +13,38 @@
         }
         
         body {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
         
         .container {
-            width: 100%;
             max-width: 1200px;
+            margin: 0 auto;
             background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
         
-        .header {
-            background: white;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
         }
         
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
         
-        .logo h1 {
-            color: var(--primary-color);
-            font-size: 24px;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .main-content {
@@ -75,25 +53,69 @@
         }
         
         .sidebar {
-            width: 250px;
+            width: 280px;
             background: #f8f9fa;
-            padding: 20px;
-            border-right: 1px solid #eee;
+            border-right: 1px solid #e9ecef;
+            padding: 25px 20px;
         }
         
-        .content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #495057;
         }
         
-        .login-container {
-            width: 100%;
-            max-width: 400px;
+        .menu-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active {
             background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #4CAF50;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .menu-item i {
+            font-size: 1.4rem;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .content-area {
+            flex: 1;
             padding: 30px;
+            background: white;
+        }
+        
+        .content-panel {
+            display: none;
+        }
+        
+        .content-panel.active {
+            display: block;
+        }
+        
+        .panel-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #333;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .panel-description {
+            margin-bottom: 25px;
+            color: #666;
+            line-height: 1.6;
         }
         
         .form-group {
@@ -103,273 +125,198 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
+            font-weight: 600;
+            color: #495057;
         }
         
-        input, select, textarea {
+        textarea {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: 16px;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 1rem;
             transition: border 0.3s;
         }
         
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--primary-color);
+        textarea:focus {
+            border-color: #4CAF50;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
         }
         
         button {
-            padding: 12px 20px;
+            padding: 14px 25px;
             border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            font-weight: 500;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button i {
+            margin-right: 8px;
         }
         
         .btn-primary {
-            background: var(--primary-color);
+            background: #4CAF50;
             color: white;
         }
         
         .btn-primary:hover {
-            background: #5a6fd8;
-        }
-        
-        .btn-success {
-            background: var(--success-color);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #449d44;
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
         }
         
         .btn-warning {
-            background: var(--warning-color);
+            background: #FF9800;
             color: white;
         }
         
         .btn-warning:hover {
             background: #e68900;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
         }
         
         .btn-info {
-            background: var(--info-color);
+            background: #2196F3;
             color: white;
         }
         
         .btn-info:hover {
-            background: #1a7dc4;
+            background: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
         }
         
-        .btn-danger {
-            background: var(--danger-color);
+        .btn-secondary {
+            background: #6c757d;
             color: white;
         }
         
-        .btn-danger:hover {
-            background: #d32f2f;
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
         }
         
-        .card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .progress-container {
+            margin: 25px 0;
             padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .card-header {
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .nav-menu {
-            list-style: none;
-        }
-        
-        .nav-item {
-            margin-bottom: 10px;
-        }
-        
-        .nav-link {
-            display: block;
-            padding: 12px 15px;
-            border-radius: var(--border-radius);
-            color: #555;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .table th, .table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .table th {
             background: #f8f9fa;
-            font-weight: 600;
-        }
-        
-        .status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        .status-success {
-            background: #e8f5e8;
-            color: var(--success-color);
-        }
-        
-        .status-warning {
-            background: #fff3e0;
-            color: var(--warning-color);
-        }
-        
-        .status-danger {
-            background: #ffeaea;
-            color: var(--danger-color);
+            border-radius: 10px;
         }
         
         .progress-bar {
-            height: 8px;
-            background: #f0f0f0;
-            border-radius: 4px;
+            width: 100%;
+            height: 12px;
+            background-color: #e9ecef;
+            border-radius: 6px;
             overflow: hidden;
             margin: 10px 0;
         }
         
         .progress-fill {
             height: 100%;
-            background: var(--success-color);
-            transition: width 0.3s;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            border-radius: 6px;
+            transition: width 0.5s ease;
         }
         
-        .alert {
-            padding: 12px 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
+        .status-container {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95rem;
         }
         
-        .alert-success {
-            background: #e8f5e8;
-            color: var(--success-color);
-            border: 1px solid #c3e6cb;
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
         }
         
-        .alert-error {
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .status-loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .results-container {
+            margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .result-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ddd;
+            background: #f8f9fa;
+        }
+        
+        .result-item.has-brand {
+            border-left-color: #4CAF50;
+            background: #f0f9f0;
+        }
+        
+        .result-item.no-brand {
+            border-left-color: #FF9800;
+            background: #fff3e0;
+        }
+        
+        .result-item.error {
+            border-left-color: #f44336;
             background: #ffeaea;
-            color: var(--danger-color);
-            border: 1px solid #f5c6cb;
         }
         
-        .tab-content {
-            display: none;
+        .result-item.loading {
+            border-left-color: #2196F3;
+            background: #f0f8ff;
         }
         
-        .tab-content.active {
-            display: block;
+        .summary {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
         }
         
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
-        }
-        
-        .tab {
-            padding: 12px 20px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-        
-        .tab.active {
-            border-bottom-color: var(--primary-color);
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-        
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .tool-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 20px;
+        .footer {
             text-align: center;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .tool-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .tool-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .tool-desc {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
         }
         
         @media (max-width: 768px) {
@@ -380,795 +327,743 @@
             .sidebar {
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid #e9ecef;
             }
             
-            .tool-grid {
-                grid-template-columns: 1fr;
+            .button-group {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 登录页面 -->
-    <div id="loginPage" class="login-container">
-        <div class="logo" style="justify-content: center; margin-bottom: 30px;">
-            <h1>🔧 Qoo10数据工具</h1>
-        </div>
-        
-        <div id="loginAlert" class="alert alert-error hidden"></div>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">用户名</label>
-                <input type="text" id="username" placeholder="请输入用户名" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">密码</label>
-                <input type="password" id="password" placeholder="请输入密码" required>
-            </div>
-            
-            <button type="submit" class="btn-primary" style="width: 100%;">登录</button>
-        </form>
-        
-        <div style="margin-top: 20px; text-align: center; font-size: 14px; color: #666;">
-            <p>管理员账号: admin / 密码: 112211</p>
-            <p style="margin-top: 10px;">演示账号: demo / 密码: 123456</p>
-        </div>
-    </div>
-    
-    <!-- 主应用页面 -->
-    <div id="appPage" class="container hidden">
-        <div class="header">
-            <div class="logo">
-                <h1>🔧 Qoo10数据工具</h1>
-            </div>
-            
-            <div class="user-info">
-                <span id="userRole"></span>
-                <button id="logoutBtn" class="btn-danger">退出登录</button>
-            </div>
-        </div>
+    <div class="container">
+        <header>
+            <h1>🔧 Qoo10多功能数据工具</h1>
+            <p>集成关键词采集、品牌检测、URL检测的Qoo10多功能工具</p>
+        </header>
         
         <div class="main-content">
             <div class="sidebar">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active" data-tab="dashboard">控制面板</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-tab="collector">关键词采集</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-tab="brandDetector">品牌检测</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-tab="urlDetector">URL检测</a>
-                    </li>
-                    <li id="adminNav" class="nav-item hidden">
-                        <a href="#" class="nav-link" data-tab="userManagement">用户管理</a>
-                    </li>
-                    <li id="adminNav2" class="nav-item hidden">
-                        <a href="#" class="nav-link" data-tab="settings">系统设置</a>
-                    </li>
-                </ul>
+                <div class="menu-item active" data-panel="collector">
+                    <i>📥</i> 关键词采集
+                </div>
+                <div class="menu-item" data-panel="brand-detector">
+                    <i>🔍</i> 品牌检测
+                </div>
+                <div class="menu-item" data-panel="url-detector">
+                    <i>🌐</i> URL检测
+                </div>
+                <div class="menu-item" data-panel="results">
+                    <i>📊</i> 查看结果
+                </div>
             </div>
             
-            <div class="content">
-                <!-- 控制面板 -->
-                <div id="dashboard" class="tab-content active">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">欢迎使用 Qoo10数据工具</h2>
-                        </div>
-                        <p>这是一个多功能的数据采集和分析工具，专为Qoo10平台设计。</p>
-                        
-                        <div class="tool-grid">
-                            <div class="tool-card" data-tab="collector">
-                                <div class="tool-icon">📥</div>
-                                <div class="tool-title">关键词采集</div>
-                                <div class="tool-desc">批量采集商品链接，自动滚动页面获取更多结果</div>
-                            </div>
-                            
-                            <div class="tool-card" data-tab="brandDetector">
-                                <div class="tool-icon">🔍</div>
-                                <div class="tool-title">品牌检测</div>
-                                <div class="tool-desc">检测搜索结果中是否包含品牌商品</div>
-                            </div>
-                            
-                            <div class="tool-card" data-tab="urlDetector">
-                                <div class="tool-icon">🌐</div>
-                                <div class="tool-title">URL检测</div>
-                                <div class="tool-desc">分析商品页面数据，提取价格、销售等信息</div>
-                            </div>
+            <div class="content-area">
+                <!-- 关键词采集面板 -->
+                <div class="content-panel active" id="collector-panel">
+                    <h2 class="panel-title">📥 关键词采集</h2>
+                    <p class="panel-description">批量采集Qoo10商品链接。输入关键词，系统将自动搜索并采集包含?cit=参数的链接。</p>
+                    
+                    <div class="form-group">
+                        <label for="collector-keywords">输入关键词（每行一个）:</label>
+                        <textarea id="collector-keywords" rows="6" placeholder="请输入搜索关键词，每行一个&#10;例如：&#10;わんぴーす&#10;猫用おもちゃ&#10;ドッグフード"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="start-collect" class="btn-primary">
+                            <i>▶️</i> 开始批量采集
+                        </button>
+                        <button id="stop-collect" class="btn-warning" disabled>
+                            <i>⏹️</i> 停止采集
+                        </button>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div>进度: <span id="collector-progress-text">0/0</span></div>
+                        <div class="progress-bar">
+                            <div id="collector-progress-fill" class="progress-fill" style="width: 0%"></div>
                         </div>
                     </div>
                     
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">使用统计</h2>
-                        </div>
-                        <div id="usageStats">
-                            <p>您的账号有效期至: <span id="expiryDate">2023-12-31</span></p>
-                            <p>剩余天数: <span id="remainingDays">30</span> 天</p>
-                        </div>
+                    <div class="button-group">
+                        <button id="export-collector-csv" class="btn-info" disabled>
+                            <i>📄</i> 导出CSV
+                        </button>
+                        <button id="view-collector-results" class="btn-secondary">
+                            <i>👁️</i> 查看采集结果
+                        </button>
+                    </div>
+                    
+                    <div id="collector-status" class="status-container">
+                        就绪 - 请输入关键词后开始采集
                     </div>
                 </div>
                 
-                <!-- 关键词采集 -->
-                <div id="collector" class="tab-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">关键词采集</h2>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="collectorKeywords">输入关键词（每行一个）:</label>
-                            <textarea id="collectorKeywords" rows="5" placeholder="请输入搜索关键词，每行一个&#10;例如：&#10;わんぴーす&#10;猫用おもちゃ&#10;ドッグフード"></textarea>
-                        </div>
-                        
-                        <div class="button-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
-                            <button id="startCollect" class="btn-primary">开始批量采集</button>
-                            <button id="stopCollect" class="btn-warning" disabled>停止采集</button>
-                        </div>
-                        
-                        <div class="progress">
-                            <div>进度: <span id="progressText">0/0</span></div>
-                            <div class="progress-bar">
-                                <div id="progressFill" class="progress-fill" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="button-group" style="display: flex; gap: 10px; margin-top: 20px;">
-                            <button id="exportCSV" class="btn-info" disabled>导出CSV</button>
-                            <button id="viewResults" class="btn-secondary">查看采集结果</button>
-                        </div>
-                        
-                        <div id="collectorStatus" class="status" style="margin-top: 20px;">就绪 - 请输入关键词后开始采集</div>
+                <!-- 品牌检测面板 -->
+                <div class="content-panel" id="brand-detector-panel">
+                    <h2 class="panel-title">🔍 品牌检测</h2>
+                    <p class="panel-description">检测Qoo10搜索页面中是否包含品牌商品。输入关键词，系统将自动检测搜索结果中的品牌商品。</p>
+                    
+                    <div class="form-group">
+                        <label for="brand-keywords">输入关键词（每行一个）:</label>
+                        <textarea id="brand-keywords" rows="6" placeholder="请输入搜索关键词，每行一个&#10;例如：&#10;わんぴーす&#10;猫用おもちゃ&#10;ドッグフード"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="check-brand" class="btn-primary">
+                            <i>🔍</i> 开始品牌检测
+                        </button>
+                        <button id="view-brand-results" class="btn-secondary" disabled>
+                            <i>👁️</i> 查看检测结果
+                        </button>
+                        <button id="export-brand-csv" class="btn-info" disabled>
+                            <i>📄</i> 导出CSV
+                        </button>
+                    </div>
+                    
+                    <div id="brand-status" class="status-container">
+                        就绪 - 请输入关键词后开始检测
                     </div>
                 </div>
                 
-                <!-- 品牌检测 -->
-                <div id="brandDetector" class="tab-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">品牌检测</h2>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="brandKeywords">输入关键词（每行一个）:</label>
-                            <textarea id="brandKeywords" rows="5" placeholder="请输入搜索关键词，每行一个&#10;例如：&#10;わんぴーす&#10;猫用おもちゃ&#10;ドッグフード"></textarea>
-                        </div>
-                        
-                        <div class="button-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
-                            <button id="checkBrand" class="btn-primary">开始品牌检测</button>
-                            <button id="viewBrandResults" class="btn-secondary" disabled>查看检测结果</button>
-                            <button id="exportBrandCSV" class="btn-info" disabled>导出CSV</button>
-                        </div>
-                        
-                        <div id="brandStatus" class="status">就绪 - 请输入关键词后开始检测</div>
+                <!-- URL检测面板 -->
+                <div class="content-panel" id="url-detector-panel">
+                    <h2 class="panel-title">🌐 URL检测</h2>
+                    <p class="panel-description">分析Qoo10商品页面的详细信息，包括价格、销售数据、运费和品牌状态。</p>
+                    
+                    <div class="form-group">
+                        <label for="urls">输入Qoo10 URL:</label>
+                        <textarea id="urls" rows="6" placeholder="请输入Qoo10店铺URL或商品URL，每行一个&#10;例如：&#10;https://www.qoo10.jp/shop/morecon?cit=1021126500&#10;https://www.qoo10.jp/g/1047384009"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="extract-urls" class="btn-primary">
+                            <i>🔗</i> 提取商品URL
+                        </button>
+                        <button id="check-urls" class="btn-info" disabled>
+                            <i>🔍</i> 检测数据
+                        </button>
+                        <button id="export-url-csv" class="btn-info" disabled>
+                            <i>📄</i> 导出CSV
+                        </button>
+                    </div>
+                    
+                    <div id="url-status" class="status-container">
+                        就绪 - 请输入URL后开始检测
                     </div>
                 </div>
                 
-                <!-- URL检测 -->
-                <div id="urlDetector" class="tab-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">URL检测</h2>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="urls">输入Qoo10 URL:</label>
-                            <textarea id="urls" rows="5" placeholder="请输入Qoo10店铺URL或商品URL，每行一个&#10;例如：&#10;https://www.qoo10.jp/shop/morecon?cit=1021126500&#10;https://www.qoo10.jp/g/1047384009"></textarea>
-                        </div>
-                        
-                        <div class="button-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
-                            <button id="extractUrls" class="btn-primary">提取商品URL</button>
-                            <button id="checkUrls" class="btn-info" disabled>检测数据</button>
-                            <button id="exportUrlCSV" class="btn-info" disabled>导出CSV</button>
-                        </div>
-                        
-                        <div id="urlStatus" class="status">就绪 - 请输入URL后开始检测</div>
+                <!-- 结果查看面板 -->
+                <div class="content-panel" id="results-panel">
+                    <h2 class="panel-title">📊 查看结果</h2>
+                    <p class="panel-description">查看所有采集和检测的结果数据。</p>
+                    
+                    <div class="button-group">
+                        <button id="view-collector-data" class="btn-primary">
+                            <i>📥</i> 查看采集数据
+                        </button>
+                        <button id="view-brand-data" class="btn-primary">
+                            <i>🔍</i> 查看品牌检测数据
+                        </button>
+                        <button id="view-url-data" class="btn-primary">
+                            <i>🌐</i> 查看URL检测数据
+                        </button>
                     </div>
-                </div>
-                
-                <!-- 用户管理 (仅管理员可见) -->
-                <div id="userManagement" class="tab-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">用户管理</h2>
-                            <button id="addUserBtn" class="btn-success">添加用户</button>
-                        </div>
-                        
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>用户名</th>
-                                    <th>角色</th>
-                                    <th>有效期至</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="userTableBody">
-                                <!-- 用户数据将通过JavaScript动态填充 -->
-                            </tbody>
-                        </table>
+                    
+                    <div id="results-summary" class="summary">
+                        请选择要查看的数据类型
                     </div>
-                </div>
-                
-                <!-- 系统设置 (仅管理员可见) -->
-                <div id="settings" class="tab-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">系统设置</h2>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="adminPassword">管理员密码</label>
-                            <input type="password" id="adminPassword" placeholder="请输入新密码">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="confirmPassword">确认密码</label>
-                            <input type="password" id="confirmPassword" placeholder="请再次输入密码">
-                        </div>
-                        
-                        <button id="changePasswordBtn" class="btn-primary">修改密码</button>
+                    
+                    <div id="results-container" class="results-container">
+                        <!-- 结果将在这里动态显示 -->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- 添加用户模态框 -->
-    <div id="addUserModal" class="modal hidden">
-        <div class="card" style="width: 400px;">
-            <div class="card-header">
-                <h2 class="card-title">添加用户</h2>
-                <button id="closeModalBtn" style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
-            </div>
-            
-            <div class="form-group">
-                <label for="newUsername">用户名</label>
-                <input type="text" id="newUsername" placeholder="请输入用户名">
-            </div>
-            
-            <div class="form-group">
-                <label for="newUserPassword">密码</label>
-                <input type="password" id="newUserPassword" placeholder="请输入密码">
-            </div>
-            
-            <div class="form-group">
-                <label for="userRoleSelect">角色</label>
-                <select id="userRoleSelect">
-                    <option value="user">普通用户</option>
-                    <option value="admin">管理员</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="userExpiryDays">有效期（天）</label>
-                <input type="number" id="userExpiryDays" value="30" min="1">
-            </div>
-            
-            <div class="button-group" style="display: flex; gap: 10px;">
-                <button id="saveUserBtn" class="btn-success">保存</button>
-                <button id="cancelUserBtn" class="btn-secondary">取消</button>
-            </div>
+        
+        <div class="footer">
+            <p>Qoo10多功能数据工具 v1.0 | 基于Chrome扩展转化</p>
         </div>
     </div>
 
     <script>
-        // 用户数据存储
-        let users = JSON.parse(localStorage.getItem('qoo10_users')) || [
-            { username: 'admin', password: '112211', role: 'admin', expiryDate: '2099-12-31' },
-            { username: 'demo', password: '123456', role: 'user', expiryDate: '2024-12-31' }
-        ];
-        
-        // 当前登录用户
-        let currentUser = null;
+        // 全局变量
+        let collectedData = {};
+        let brandDetectionResults = [];
+        let urlDetectionResults = [];
+        let isCollecting = false;
+        let currentBatch = [];
+        let currentIndex = 0;
         
         // DOM元素
-        const loginPage = document.getElementById('loginPage');
-        const appPage = document.getElementById('appPage');
-        const loginForm = document.getElementById('loginForm');
-        const loginAlert = document.getElementById('loginAlert');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const userRole = document.getElementById('userRole');
-        const adminNav = document.getElementById('adminNav');
-        const adminNav2 = document.getElementById('adminNav2');
-        const expiryDate = document.getElementById('expiryDate');
-        const remainingDays = document.getElementById('remainingDays');
-        const userTableBody = document.getElementById('userTableBody');
-        const addUserModal = document.getElementById('addUserModal');
-        const addUserBtn = document.getElementById('addUserBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const saveUserBtn = document.getElementById('saveUserBtn');
-        const cancelUserBtn = document.getElementById('cancelUserBtn');
-        const changePasswordBtn = document.getElementById('changePasswordBtn');
+        const menuItems = document.querySelectorAll('.menu-item');
+        const contentPanels = document.querySelectorAll('.content-panel');
         
-        // 初始化
+        // 初始化事件监听
         document.addEventListener('DOMContentLoaded', function() {
-            // 检查是否已登录
-            const savedUser = localStorage.getItem('qoo10_currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showAppPage();
-            }
-            
-            // 登录表单提交
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                const user = users.find(u => u.username === username && u.password === password);
-                
-                if (user) {
-                    // 检查账号是否过期
-                    const today = new Date();
-                    const expiry = new Date(user.expiryDate);
+            // 菜单切换
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const panelId = this.getAttribute('data-panel') + '-panel';
                     
-                    if (expiry < today && user.role !== 'admin') {
-                        showAlert('账号已过期，请联系管理员', 'error');
-                        return;
-                    }
-                    
-                    currentUser = user;
-                    localStorage.setItem('qoo10_currentUser', JSON.stringify(user));
-                    showAppPage();
-                } else {
-                    showAlert('用户名或密码错误', 'error');
-                }
-            });
-            
-            // 退出登录
-            logoutBtn.addEventListener('click', function() {
-                currentUser = null;
-                localStorage.removeItem('qoo10_currentUser');
-                showLoginPage();
-            });
-            
-            // 导航菜单点击
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // 移除所有active类
-                    document.querySelectorAll('.nav-link').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // 添加active类到当前点击的链接
+                    // 更新菜单激活状态
+                    menuItems.forEach(i => i.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // 隐藏所有标签内容
-                    document.querySelectorAll('.tab-content').forEach(tab => {
-                        tab.classList.remove('active');
-                    });
-                    
-                    // 显示对应的标签内容
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                    // 显示对应面板
+                    contentPanels.forEach(panel => panel.classList.remove('active'));
+                    document.getElementById(panelId).classList.add('active');
                 });
             });
             
-            // 工具卡片点击
-            document.querySelectorAll('.tool-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // 更新导航菜单
-                    document.querySelectorAll('.nav-link').forEach(item => {
-                        item.classList.remove('active');
-                        if (item.getAttribute('data-tab') === tabId) {
-                            item.classList.add('active');
-                        }
-                    });
-                    
-                    // 显示对应的标签内容
-                    document.querySelectorAll('.tab-content').forEach(tab => {
-                        tab.classList.remove('active');
-                        if (tab.id === tabId) {
-                            tab.classList.add('active');
-                        }
-                    });
-                });
+            // 关键词采集功能
+            document.getElementById('start-collect').addEventListener('click', startCollection);
+            document.getElementById('stop-collect').addEventListener('click', stopCollection);
+            document.getElementById('export-collector-csv').addEventListener('click', exportCollectorCSV);
+            document.getElementById('view-collector-results').addEventListener('click', function() {
+                showResults('collector');
             });
             
-            // 用户管理相关
-            addUserBtn.addEventListener('click', function() {
-                addUserModal.classList.remove('hidden');
+            // 品牌检测功能
+            document.getElementById('check-brand').addEventListener('click', startBrandDetection);
+            document.getElementById('view-brand-results').addEventListener('click', function() {
+                showResults('brand');
+            });
+            document.getElementById('export-brand-csv').addEventListener('click', exportBrandCSV);
+            
+            // URL检测功能
+            document.getElementById('extract-urls').addEventListener('click', extractProductUrls);
+            document.getElementById('check-urls').addEventListener('click', startUrlDetection);
+            document.getElementById('export-url-csv').addEventListener('click', exportUrlCSV);
+            
+            // 结果查看功能
+            document.getElementById('view-collector-data').addEventListener('click', function() {
+                showResults('collector');
+            });
+            document.getElementById('view-brand-data').addEventListener('click', function() {
+                showResults('brand');
+            });
+            document.getElementById('view-url-data').addEventListener('click', function() {
+                showResults('url');
             });
             
-            closeModalBtn.addEventListener('click', function() {
-                addUserModal.classList.add('hidden');
-            });
-            
-            cancelUserBtn.addEventListener('click', function() {
-                addUserModal.classList.add('hidden');
-            });
-            
-            saveUserBtn.addEventListener('click', function() {
-                const newUsername = document.getElementById('newUsername').value;
-                const newPassword = document.getElementById('newUserPassword').value;
-                const role = document.getElementById('userRoleSelect').value;
-                const expiryDays = parseInt(document.getElementById('userExpiryDays').value);
-                
-                if (!newUsername || !newPassword) {
-                    alert('请填写完整的用户信息');
-                    return;
-                }
-                
-                // 检查用户名是否已存在
-                if (users.find(u => u.username === newUsername)) {
-                    alert('用户名已存在');
-                    return;
-                }
-                
-                // 计算过期日期
-                const expiryDate = new Date();
-                expiryDate.setDate(expiryDate.getDate() + expiryDays);
-                
-                // 添加新用户
-                users.push({
-                    username: newUsername,
-                    password: newPassword,
-                    role: role,
-                    expiryDate: expiryDate.toISOString().split('T')[0]
-                });
-                
-                // 保存到本地存储
-                localStorage.setItem('qoo10_users', JSON.stringify(users));
-                
-                // 更新用户表格
-                renderUserTable();
-                
-                // 关闭模态框
-                addUserModal.classList.add('hidden');
-                
-                // 清空表单
-                document.getElementById('newUsername').value = '';
-                document.getElementById('newUserPassword').value = '';
-                document.getElementById('userRoleSelect').value = 'user';
-                document.getElementById('userExpiryDays').value = '30';
-            });
-            
-            // 修改密码
-            changePasswordBtn.addEventListener('click', function() {
-                const newPassword = document.getElementById('adminPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (!newPassword || !confirmPassword) {
-                    alert('请填写密码');
-                    return;
-                }
-                
-                if (newPassword !== confirmPassword) {
-                    alert('两次输入的密码不一致');
-                    return;
-                }
-                
-                // 更新管理员密码
-                const adminUser = users.find(u => u.username === 'admin');
-                if (adminUser) {
-                    adminUser.password = newPassword;
-                    localStorage.setItem('qoo10_users', JSON.stringify(users));
-                    alert('密码修改成功');
-                    
-                    // 清空表单
-                    document.getElementById('adminPassword').value = '';
-                    document.getElementById('confirmPassword').value = '';
-                }
-            });
-            
-            // 初始化用户表格
-            renderUserTable();
+            // 从本地存储加载数据
+            loadFromLocalStorage();
         });
-        
-        // 显示登录页面
-        function showLoginPage() {
-            loginPage.classList.remove('hidden');
-            appPage.classList.add('hidden');
-        }
-        
-        // 显示应用页面
-        function showAppPage() {
-            loginPage.classList.add('hidden');
-            appPage.classList.remove('hidden');
-            
-            // 更新用户信息
-            userRole.textContent = `${currentUser.username} (${currentUser.role === 'admin' ? '管理员' : '普通用户'})`;
-            
-            // 显示/隐藏管理员菜单
-            if (currentUser.role === 'admin') {
-                adminNav.classList.remove('hidden');
-                adminNav2.classList.remove('hidden');
-            } else {
-                adminNav.classList.add('hidden');
-                adminNav2.classList.add('hidden');
-            }
-            
-            // 更新有效期信息
-            const today = new Date();
-            const expiry = new Date(currentUser.expiryDate);
-            const diffTime = expiry - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            expiryDate.textContent = currentUser.expiryDate;
-            remainingDays.textContent = diffDays > 0 ? diffDays : 0;
-        }
-        
-        // 显示提示信息
-        function showAlert(message, type) {
-            loginAlert.textContent = message;
-            loginAlert.className = `alert alert-${type}`;
-            loginAlert.classList.remove('hidden');
-            
-            // 3秒后自动隐藏
-            setTimeout(() => {
-                loginAlert.classList.add('hidden');
-            }, 3000);
-        }
-        
-        // 渲染用户表格
-        function renderUserTable() {
-            userTableBody.innerHTML = '';
-            
-            users.forEach(user => {
-                if (user.username === 'admin' && currentUser.username !== 'admin') return;
-                
-                const row = document.createElement('tr');
-                
-                // 用户名
-                const usernameCell = document.createElement('td');
-                usernameCell.textContent = user.username;
-                row.appendChild(usernameCell);
-                
-                // 角色
-                const roleCell = document.createElement('td');
-                roleCell.textContent = user.role === 'admin' ? '管理员' : '普通用户';
-                row.appendChild(roleCell);
-                
-                // 有效期
-                const expiryCell = document.createElement('td');
-                expiryCell.textContent = user.expiryDate;
-                row.appendChild(expiryCell);
-                
-                // 状态
-                const statusCell = document.createElement('td');
-                const statusSpan = document.createElement('span');
-                
-                const today = new Date();
-                const expiry = new Date(user.expiryDate);
-                
-                if (expiry < today && user.role !== 'admin') {
-                    statusSpan.textContent = '已过期';
-                    statusSpan.className = 'status status-danger';
-                } else {
-                    statusSpan.textContent = '有效';
-                    statusSpan.className = 'status status-success';
-                }
-                
-                statusCell.appendChild(statusSpan);
-                row.appendChild(statusCell);
-                
-                // 操作
-                const actionCell = document.createElement('td');
-                
-                if (user.username !== 'admin' || currentUser.username === 'admin') {
-                    const editButton = document.createElement('button');
-                    editButton.textContent = '编辑';
-                    editButton.className = 'btn-info';
-                    editButton.style.marginRight = '5px';
-                    editButton.addEventListener('click', function() {
-                        editUser(user.username);
-                    });
-                    
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = '删除';
-                    deleteButton.className = 'btn-danger';
-                    deleteButton.addEventListener('click', function() {
-                        deleteUser(user.username);
-                    });
-                    
-                    actionCell.appendChild(editButton);
-                    actionCell.appendChild(deleteButton);
-                } else {
-                    actionCell.textContent = '-';
-                }
-                
-                row.appendChild(actionCell);
-                userTableBody.appendChild(row);
-            });
-        }
-        
-        // 编辑用户
-        function editUser(username) {
-            const user = users.find(u => u.username === username);
-            if (!user) return;
-            
-            document.getElementById('newUsername').value = user.username;
-            document.getElementById('newUserPassword').value = user.password;
-            document.getElementById('userRoleSelect').value = user.role;
-            
-            // 计算剩余天数
-            const today = new Date();
-            const expiry = new Date(user.expiryDate);
-            const diffTime = expiry - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            document.getElementById('userExpiryDays').value = diffDays > 0 ? diffDays : 0;
-            
-            addUserModal.classList.remove('hidden');
-            
-            // 修改保存按钮行为
-            saveUserBtn.onclick = function() {
-                const newUsername = document.getElementById('newUsername').value;
-                const newPassword = document.getElementById('newUserPassword').value;
-                const role = document.getElementById('userRoleSelect').value;
-                const expiryDays = parseInt(document.getElementById('userExpiryDays').value);
-                
-                if (!newUsername || !newPassword) {
-                    alert('请填写完整的用户信息');
-                    return;
-                }
-                
-                // 更新用户信息
-                user.username = newUsername;
-                user.password = newPassword;
-                user.role = role;
-                
-                // 计算新的过期日期
-                const newExpiryDate = new Date();
-                newExpiryDate.setDate(newExpiryDate.getDate() + expiryDays);
-                user.expiryDate = newExpiryDate.toISOString().split('T')[0];
-                
-                // 保存到本地存储
-                localStorage.setItem('qoo10_users', JSON.stringify(users));
-                
-                // 更新用户表格
-                renderUserTable();
-                
-                // 关闭模态框
-                addUserModal.classList.add('hidden');
-                
-                // 重置保存按钮行为
-                saveUserBtn.onclick = function() {
-                    // 添加用户的逻辑
-                };
-                
-                // 清空表单
-                document.getElementById('newUsername').value = '';
-                document.getElementById('newUserPassword').value = '';
-                document.getElementById('userRoleSelect').value = 'user';
-                document.getElementById('userExpiryDays').value = '30';
-            };
-        }
-        
-        // 删除用户
-        function deleteUser(username) {
-            if (username === 'admin') {
-                alert('不能删除管理员账号');
-                return;
-            }
-            
-            if (confirm(`确定要删除用户 "${username}" 吗？`)) {
-                users = users.filter(u => u.username !== username);
-                localStorage.setItem('qoo10_users', JSON.stringify(users));
-                renderUserTable();
-            }
-        }
-        
-        // 以下是原有功能的简化实现
-        // 在实际应用中，这些功能需要与后端API交互
         
         // 关键词采集功能
-        document.getElementById('startCollect').addEventListener('click', function() {
-            const keywords = document.getElementById('collectorKeywords').value.split('\n')
+        function startCollection() {
+            const keywordsText = document.getElementById('collector-keywords').value;
+            const keywords = keywordsText.split('\n')
                 .map(k => k.trim())
                 .filter(k => k.length > 0);
             
             if (keywords.length === 0) {
-                document.getElementById('collectorStatus').textContent = '请输入至少一个关键词';
-                document.getElementById('collectorStatus').className = 'status status-danger';
+                setStatus('collector', '请输入至少一个关键词', 'error');
                 return;
             }
+            
+            isCollecting = true;
+            currentBatch = keywords;
+            currentIndex = 0;
+            collectedData = {};
+            
+            document.getElementById('start-collect').disabled = true;
+            document.getElementById('stop-collect').disabled = false;
+            document.getElementById('export-collector-csv').disabled = true;
+            
+            setStatus('collector', `开始采集 ${keywords.length} 个关键词...`, 'loading');
+            updateCollectorProgress(0, keywords.length);
             
             // 模拟采集过程
-            document.getElementById('startCollect').disabled = true;
-            document.getElementById('stopCollect').disabled = false;
-            document.getElementById('collectorStatus').textContent = '开始批量采集...';
-            document.getElementById('collectorStatus').className = 'status status-warning';
+            processNextKeyword();
+        }
+        
+        function processNextKeyword() {
+            if (!isCollecting || currentIndex >= currentBatch.length) {
+                finishCollection();
+                return;
+            }
             
-            let current = 0;
-            const total = keywords.length;
+            const keyword = currentBatch[currentIndex];
+            setStatus('collector', `正在采集: ${keyword}`, 'loading');
             
-            const interval = setInterval(() => {
-                current++;
-                document.getElementById('progressText').textContent = `${current}/${total}`;
-                document.getElementById('progressFill').style.width = `${(current / total) * 100}%`;
+            // 模拟采集延迟
+            setTimeout(() => {
+                // 模拟采集结果
+                const links = [];
+                const linkCount = Math.floor(Math.random() * 10) + 1;
                 
-                if (current >= total) {
-                    clearInterval(interval);
-                    document.getElementById('startCollect').disabled = false;
-                    document.getElementById('stopCollect').disabled = true;
-                    document.getElementById('exportCSV').disabled = false;
-                    document.getElementById('collectorStatus').textContent = '采集完成';
-                    document.getElementById('collectorStatus').className = 'status status-success';
+                for (let i = 0; i < linkCount; i++) {
+                    links.push(`https://www.qoo10.jp/g/${Math.floor(Math.random() * 1000000000)}?cit=${Math.floor(Math.random() * 1000000000)}`);
                 }
-            }, 500);
+                
+                collectedData[keyword] = {
+                    links: links,
+                    count: links.length,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // 更新进度
+                currentIndex++;
+                updateCollectorProgress(currentIndex, currentBatch.length);
+                
+                // 保存到本地存储
+                saveToLocalStorage();
+                
+                if (currentIndex < currentBatch.length) {
+                    processNextKeyword();
+                } else {
+                    finishCollection();
+                }
+            }, 2000);
+        }
+        
+        function stopCollection() {
+            isCollecting = false;
+            document.getElementById('start-collect').disabled = false;
+            document.getElementById('stop-collect').disabled = true;
+            setStatus('collector', '采集已停止', 'success');
+        }
+        
+        function finishCollection() {
+            isCollecting = false;
+            document.getElementById('start-collect').disabled = false;
+            document.getElementById('stop-collect').disabled = true;
+            document.getElementById('export-collector-csv').disabled = false;
             
-            // 停止按钮功能
-            document.getElementById('stopCollect').onclick = function() {
-                clearInterval(interval);
-                document.getElementById('startCollect').disabled = false;
-                document.getElementById('stopCollect').disabled = true;
-                document.getElementById('collectorStatus').textContent = '采集已停止';
-                document.getElementById('collectorStatus').className = 'status status-danger';
-            };
-        });
+            const totalLinks = Object.values(collectedData).reduce((sum, data) => sum + data.count, 0);
+            setStatus('collector', `采集完成！共采集 ${currentBatch.length} 个关键词，找到 ${totalLinks} 个链接`, 'success');
+        }
+        
+        function updateCollectorProgress(current, total) {
+            const percentage = (current / total) * 100;
+            document.getElementById('collector-progress-text').textContent = `${current}/${total}`;
+            document.getElementById('collector-progress-fill').style.width = `${percentage}%`;
+        }
         
         // 品牌检测功能
-        document.getElementById('checkBrand').addEventListener('click', function() {
-            const keywords = document.getElementById('brandKeywords').value.split('\n')
+        function startBrandDetection() {
+            const keywordsText = document.getElementById('brand-keywords').value;
+            const keywords = keywordsText.split('\n')
                 .map(k => k.trim())
                 .filter(k => k.length > 0);
             
             if (keywords.length === 0) {
-                document.getElementById('brandStatus').textContent = '请输入至少一个关键词';
-                document.getElementById('brandStatus').className = 'status status-danger';
+                setStatus('brand', '请输入至少一个关键词', 'error');
                 return;
             }
             
-            document.getElementById('brandStatus').textContent = '正在检测品牌...';
-            document.getElementById('brandStatus').className = 'status status-warning';
+            setStatus('brand', `开始品牌检测 ${keywords.length} 个关键词...`, 'loading');
             
-            // 模拟检测过程
-            setTimeout(() => {
-                document.getElementById('viewBrandResults').disabled = false;
-                document.getElementById('exportBrandCSV').disabled = false;
-                document.getElementById('brandStatus').textContent = '品牌检测完成';
-                document.getElementById('brandStatus').className = 'status status-success';
-            }, 2000);
-        });
+            // 模拟品牌检测过程
+            brandDetectionResults = [];
+            
+            let completed = 0;
+            keywords.forEach((keyword, index) => {
+                setTimeout(() => {
+                    // 模拟检测结果
+                    const hasBrand = Math.random() > 0.5;
+                    const searchResults = Math.floor(Math.random() * 100) + 1;
+                    
+                    const result = {
+                        keyword: keyword,
+                        url: `https://www.qoo10.jp/s/${encodeURIComponent(keyword)}`,
+                        hasBrand: hasBrand,
+                        status: hasBrand ? '有品牌商品' : '无品牌商品',
+                        searchResults: searchResults,
+                        searchResultText: `${searchResults} 个商品`,
+                        error: null,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    brandDetectionResults.push(result);
+                    completed++;
+                    
+                    if (completed === keywords.length) {
+                        setStatus('brand', `品牌检测完成！共检测 ${keywords.length} 个关键词`, 'success');
+                        document.getElementById('view-brand-results').disabled = false;
+                        document.getElementById('export-brand-csv').disabled = false;
+                        
+                        // 保存到本地存储
+                        saveToLocalStorage();
+                    }
+                }, index * 1500);
+            });
+        }
         
         // URL检测功能
-        document.getElementById('extractUrls').addEventListener('click', function() {
-            const urls = document.getElementById('urls').value.split('\n')
-                .map(u => u.trim())
-                .filter(u => u.length > 0);
+        function extractProductUrls() {
+            const urlsText = document.getElementById('urls').value;
+            const inputUrls = urlsText.split('\n')
+                .map(url => url.trim())
+                .filter(url => url.length > 0 && url.includes('qoo10.jp/'));
             
-            if (urls.length === 0) {
-                document.getElementById('urlStatus').textContent = '请输入至少一个URL';
-                document.getElementById('urlStatus').className = 'status status-danger';
+            if (inputUrls.length === 0) {
+                setStatus('url', '请输入有效的Qoo10 URL', 'error');
                 return;
             }
             
-            document.getElementById('urlStatus').textContent = '正在提取商品URL...';
-            document.getElementById('urlStatus').className = 'status status-warning';
+            setStatus('url', `正在处理 ${inputUrls.length} 个URL...`, 'loading');
             
-            // 模拟提取过程
+            // 模拟URL提取过程
             setTimeout(() => {
-                document.getElementById('checkUrls').disabled = false;
-                document.getElementById('urlStatus').textContent = 'URL提取完成';
-                document.getElementById('urlStatus').className = 'status status-success';
+                const extractedUrls = [];
+                
+                inputUrls.forEach(url => {
+                    if (url.includes('/shop/') && url.includes('cit=')) {
+                        const shopId = Math.floor(Math.random() * 1000000000);
+                        extractedUrls.push(`https://www.qoo10.jp/g/${shopId}`);
+                    } else if (url.includes('/g/')) {
+                        extractedUrls.push(url);
+                    }
+                });
+                
+                document.getElementById('urls').value = extractedUrls.join('\n');
+                setStatus('url', `URL提取完成！共获得 ${extractedUrls.length} 个商品URL`, 'success');
+                
+                if (extractedUrls.length > 0) {
+                    document.getElementById('check-urls').disabled = false;
+                }
             }, 2000);
-        });
+        }
         
-        document.getElementById('checkUrls').addEventListener('click', function() {
-            document.getElementById('urlStatus').textContent = '正在检测URL数据...';
-            document.getElementById('urlStatus').className = 'status status-warning';
+        function startUrlDetection() {
+            const urlsText = document.getElementById('urls').value;
+            const urls = urlsText.split('\n')
+                .map(url => url.trim())
+                .filter(url => url.length > 0);
             
-            // 模拟检测过程
-            setTimeout(() => {
-                document.getElementById('exportUrlCSV').disabled = false;
-                document.getElementById('urlStatus').textContent = 'URL检测完成';
-                document.getElementById('urlStatus').className = 'status status-success';
-            }, 2000);
-        });
+            if (urls.length === 0) {
+                setStatus('url', '请先提取商品URL', 'error');
+                return;
+            }
+            
+            setStatus('url', `开始URL检测 ${urls.length} 个商品...`, 'loading');
+            
+            // 模拟URL检测过程
+            urlDetectionResults = [];
+            
+            let completed = 0;
+            urls.forEach((url, index) => {
+                setTimeout(() => {
+                    // 模拟检测结果
+                    const hasBrand = Math.random() > 0.5;
+                    const price = `${Math.floor(Math.random() * 10000)} 円`;
+                    const salesData = `${Math.floor(Math.random() * 1000)} 個販売`;
+                    const shippingFee = `${Math.floor(Math.random() * 1000)} 円`;
+                    
+                    const result = {
+                        keyword: `商品${index + 1}`,
+                        url: url,
+                        originalUrl: url,
+                        hasBrand: hasBrand,
+                        status: hasBrand ? '有品牌' : '无品牌',
+                        shippingFee: shippingFee,
+                        price: price,
+                        salesData: salesData,
+                        descriptionTitle: `商品标题示例 ${index + 1}`,
+                        error: null,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    urlDetectionResults.push(result);
+                    completed++;
+                    
+                    if (completed === urls.length) {
+                        setStatus('url', `URL检测完成！共检测 ${urls.length} 个商品`, 'success');
+                        document.getElementById('export-url-csv').disabled = false;
+                        
+                        // 保存到本地存储
+                        saveToLocalStorage();
+                    }
+                }, index * 1500);
+            });
+        }
+        
+        // 结果显示功能
+        function showResults(type) {
+            const resultsContainer = document.getElementById('results-container');
+            const summaryDiv = document.getElementById('results-summary');
+            
+            resultsContainer.innerHTML = '';
+            
+            if (type === 'collector') {
+                const keywords = Object.keys(collectedData);
+                
+                if (keywords.length === 0) {
+                    summaryDiv.innerHTML = '<strong>暂无采集数据</strong><br>请先使用关键词采集功能进行数据采集。';
+                    resultsContainer.innerHTML = '<div class="result-item">没有找到采集数据</div>';
+                    return;
+                }
+                
+                // 计算统计信息
+                const totalKeywords = keywords.length;
+                const totalLinks = keywords.reduce((sum, keyword) => {
+                    return sum + (collectedData[keyword].count || 0);
+                }, 0);
+                
+                // 更新摘要
+                summaryDiv.innerHTML = `
+                    <strong>采集统计</strong><br>
+                    关键词数量: ${totalKeywords}<br>
+                    总链接数量: ${totalLinks}<br>
+                    采集时间: ${new Date().toLocaleString()}
+                `;
+                
+                // 显示详细结果
+                keywords.forEach(keyword => {
+                    const keywordData = collectedData[keyword];
+                    const links = keywordData.links || [];
+                    
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    
+                    resultItem.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <strong>${keyword}</strong>
+                            <span>链接数量: ${keywordData.count || 0}</span>
+                        </div>
+                        <div style="max-height: 150px; overflow-y: auto;">
+                            ${links.length > 0 ? 
+                                links.map(link => `<div style="padding: 5px 0; border-bottom: 1px solid #eee;"><a href="${link}" target="_blank">${link}</a></div>`).join('') :
+                                '<div style="color: #666; font-style: italic;">未找到链接</div>'
+                            }
+                        </div>
+                    `;
+                    
+                    resultsContainer.appendChild(resultItem);
+                });
+                
+            } else if (type === 'brand') {
+                if (brandDetectionResults.length === 0) {
+                    summaryDiv.innerHTML = '<strong>暂无品牌检测数据</strong><br>请先使用品牌检测功能进行检测。';
+                    resultsContainer.innerHTML = '<div class="result-item">没有找到检测数据</div>';
+                    return;
+                }
+                
+                const total = brandDetectionResults.length;
+                const hasBrandCount = brandDetectionResults.filter(r => r.hasBrand).length;
+                const noBrandCount = brandDetectionResults.filter(r => !r.hasBrand && !r.error).length;
+                const errorCount = brandDetectionResults.filter(r => r.error).length;
+                
+                summaryDiv.innerHTML = `
+                    <strong>品牌检测统计</strong><br>
+                    总计: ${total} | 
+                    有品牌: <span style="color: #4CAF50">${hasBrandCount}</span> | 
+                    无品牌: <span style="color: #ff9800">${noBrandCount}</span> | 
+                    失败: <span style="color: #f44336">${errorCount}</span><br>
+                    检测时间: ${new Date().toLocaleString()}
+                `;
+                
+                brandDetectionResults.forEach((result, index) => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = result.error ? 'result-item error' : 
+                                        result.hasBrand ? 'result-item has-brand' : 'result-item no-brand';
+                    
+                    if (result.error) {
+                        resultItem.innerHTML = `
+                            <strong>${index + 1}. ${result.keyword}</strong>
+                            <div>错误: ${result.error}</div>
+                            <div style="font-size: 12px; color: #666;">URL: ${result.url}</div>
+                        `;
+                    } else {
+                        resultItem.innerHTML = `
+                            <strong>${index + 1}. ${result.keyword}</strong>
+                            <div>品牌状态: <strong style="color: ${result.hasBrand ? '#4CAF50' : '#ff9800'}">${result.hasBrand ? '找到品牌商品' : '未找到品牌商品'}</strong></div>
+                            <div>搜索结果: <strong>${result.searchResultText}</strong></div>
+                            <div style="font-size: 12px; color: #666;">搜索URL: <a href="${result.url}" target="_blank">${result.url}</a></div>
+                            <div>检测时间: ${new Date(result.timestamp).toLocaleString()}</div>
+                        `;
+                    }
+                    resultsContainer.appendChild(resultItem);
+                });
+                
+            } else if (type === 'url') {
+                if (urlDetectionResults.length === 0) {
+                    summaryDiv.innerHTML = '<strong>暂无URL检测数据</strong><br>请先使用URL检测功能进行检测。';
+                    resultsContainer.innerHTML = '<div class="result-item">没有找到检测数据</div>';
+                    return;
+                }
+                
+                const total = urlDetectionResults.length;
+                const hasBrandCount = urlDetectionResults.filter(r => r.hasBrand).length;
+                const noBrandCount = urlDetectionResults.filter(r => !r.hasBrand && !r.error).length;
+                const errorCount = urlDetectionResults.filter(r => r.error).length;
+                
+                summaryDiv.innerHTML = `
+                    <strong>URL检测统计</strong><br>
+                    总计: ${total} | 
+                    有品牌: <span style="color: #4CAF50">${hasBrandCount}</span> | 
+                    无品牌: <span style="color: #ff9800">${noBrandCount}</span> | 
+                    失败: <span style="color: #f44336">${errorCount}</span><br>
+                    检测时间: ${new Date().toLocaleString()}
+                `;
+                
+                urlDetectionResults.forEach((result, index) => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = result.error ? 'result-item error' : 
+                                        result.hasBrand ? 'result-item has-brand' : 'result-item no-brand';
+                    
+                    if (result.error) {
+                        resultItem.innerHTML = `
+                            <strong>${index + 1}. ${result.keyword}</strong>
+                            <div>错误: ${result.error}</div>
+                            <div style="font-size: 12px; color: #666;">URL: ${result.url}</div>
+                        `;
+                    } else {
+                        resultItem.innerHTML = `
+                            <strong>${index + 1}. ${result.descriptionTitle || '未获取标题'}</strong>
+                            <div>描述标题: ${result.descriptionTitle || '未找到'}</div>
+                            <div>品牌状态: <strong>${result.hasBrand ? '有品牌' : '无品牌'}</strong></div>
+                            <div>价格: <strong>${result.price || '未找到'}</strong></div>
+                            <div style="margin-top: 3px; padding: 3px; background-color: #e3f2fd; border-radius: 3px; font-size: 12px;">销售数据: <strong>${result.salesData || '未找到'}</strong></div>
+                            <div>运费: <strong>${result.shippingFee || '未找到'}</strong></div>
+                            <div style="font-size: 12px; color: #666;">商品链接: <a href="${result.url}" target="_blank">${result.url}</a></div>
+                            <div>检测时间: ${new Date(result.timestamp).toLocaleString()}</div>
+                        `;
+                    }
+                    resultsContainer.appendChild(resultItem);
+                });
+            }
+        }
+        
+        // 导出功能
+        function exportCollectorCSV() {
+            if (Object.keys(collectedData).length === 0) {
+                setStatus('collector', '没有数据可导出', 'error');
+                return;
+            }
+            
+            let csvContent = '关键词,链接,采集时间\n';
+            let totalRows = 0;
+            
+            for (const [keyword, keywordData] of Object.entries(collectedData)) {
+                const links = keywordData.links || [];
+                const timestamp = keywordData.timestamp || new Date().toISOString();
+                
+                if (links.length > 0) {
+                    links.forEach(link => {
+                        const escapedKeyword = `"${keyword.replace(/"/g, '""')}"`;
+                        const escapedLink = `"${link.replace(/"/g, '""')}"`;
+                        const escapedTimestamp = `"${timestamp.replace(/"/g, '""')}"`;
+                        
+                        csvContent += `${escapedKeyword},${escapedLink},${escapedTimestamp}\n`;
+                        totalRows++;
+                    });
+                } else {
+                    const escapedKeyword = `"${keyword.replace(/"/g, '""')}"`;
+                    const escapedTimestamp = `"${timestamp.replace(/"/g, '""')}"`;
+                    csvContent += `${escapedKeyword},"无链接",${escapedTimestamp}\n`;
+                    totalRows++;
+                }
+            }
+            
+            downloadCSV(csvContent, `qoo10采集数据_${new Date().toISOString().split('T')[0]}.csv`);
+            setStatus('collector', `CSV导出完成！共 ${totalRows} 行数据`, 'success');
+        }
+        
+        function exportBrandCSV() {
+            if (brandDetectionResults.length === 0) {
+                setStatus('brand', '没有数据可导出', 'error');
+                return;
+            }
+            
+            let csvContent = '关键词,搜索URL,品牌状态,搜索结果,检测时间\n';
+            
+            brandDetectionResults.forEach(result => {
+                const status = result.hasBrand ? '有品牌商品' : '无品牌商品';
+                const row = `"${result.keyword}","${result.url}","${status}","${result.searchResultText}","${result.timestamp}"\n`;
+                csvContent += row;
+            });
+            
+            downloadCSV(csvContent, `qoo10品牌检测_${new Date().toISOString().split('T')[0]}.csv`);
+            setStatus('brand', `CSV导出完成！共 ${brandDetectionResults.length} 行数据`, 'success');
+        }
+        
+        function exportUrlCSV() {
+            if (urlDetectionResults.length === 0) {
+                setStatus('url', '没有数据可导出', 'error');
+                return;
+            }
+            
+            let csvContent = '商品标题,商品URL,品牌状态,价格,销售数据,运费,检测时间\n';
+            
+            urlDetectionResults.forEach(result => {
+                const brandStatus = result.hasBrand ? '有品牌' : '无品牌';
+                const row = `"${result.descriptionTitle || '未获取标题'}","${result.url}","${brandStatus}","${result.price}","${result.salesData}","${result.shippingFee}","${result.timestamp}"\n`;
+                csvContent += row;
+            });
+            
+            downloadCSV(csvContent, `qoo10URL检测_${new Date().toISOString().split('T')[0]}.csv`);
+            setStatus('url', `CSV导出完成！共 ${urlDetectionResults.length} 行数据`, 'success');
+        }
+        
+        function downloadCSV(csvContent, filename) {
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // 辅助功能
+        function setStatus(panel, message, type) {
+            const statusElement = document.getElementById(`${panel}-status`);
+            statusElement.textContent = message;
+            statusElement.className = `status-container status-${type}`;
+        }
+        
+        // 本地存储功能
+        function saveToLocalStorage() {
+            const data = {
+                collectedData: collectedData,
+                brandDetectionResults: brandDetectionResults,
+                urlDetectionResults: urlDetectionResults,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('qoo10-tool-data', JSON.stringify(data));
+        }
+        
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('qoo10-tool-data');
+            
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    
+                    collectedData = data.collectedData || {};
+                    brandDetectionResults = data.brandDetectionResults || [];
+                    urlDetectionResults = data.urlDetectionResults || [];
+                    
+                    // 根据加载的数据更新按钮状态
+                    if (Object.keys(collectedData).length > 0) {
+                        document.getElementById('export-collector-csv').disabled = false;
+                    }
+                    
+                    if (brandDetectionResults.length > 0) {
+                        document.getElementById('view-brand-results').disabled = false;
+                        document.getElementById('export-brand-csv').disabled = false;
+                    }
+                    
+                    if (urlDetectionResults.length > 0) {
+                        document.getElementById('export-url-csv').disabled = false;
+                    }
+                    
+                    console.log('数据已从本地存储加载');
+                } catch (e) {
+                    console.error('加载本地存储数据失败:', e);
+                }
+            }
+        }
     </script>
 </body>
 </html>
